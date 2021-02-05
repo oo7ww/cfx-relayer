@@ -34,7 +34,7 @@ async function getRawTxHash() {
 async function sendRawTx(ethSignResult) {
   tx.r = ethSignResult.slice(0, 66);
   tx.s = '0x' + ethSignResult.slice(66, 66+64);
-  tx.v = 1;
+  tx.v = Number('0x' + ethSignResult.slice(66+64, 66+66)) - 27;
   let nonce = Number(await cfx.getNextNonce(new_owner.address));
   tx.nonce = nonce;
   let rawTx = new Transaction(tx);
